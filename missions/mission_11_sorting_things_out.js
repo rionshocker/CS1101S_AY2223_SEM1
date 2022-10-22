@@ -28,13 +28,21 @@ the list of elements that are larger than the pivot and pair them
 with the head and append them together.
 */
 function quicksort(xs) {
-    const part = partition(tail(xs), head(xs));
     return is_null(xs)
            ? null
-           : append(quicksort(head(part)), 
-             pair(head(xs), quicksort(tail(part))));
+           : append(quicksort(head(partition(tail(xs), head(xs)))), 
+             pair(head(xs), quicksort(tail(partition(tail(xs), head(xs))))));
 }
 
 // Test
 const my_list = list(23, 12, 56, 92, -2, 0);
 quicksort(my_list);
+
+//TASK 3
+//Order of growth in time: θ(n);
+
+//TASK 4
+//Order of growth in time: θ(n^2);
+
+//TASK 5
+//Order of growth in time: θ(n log n);

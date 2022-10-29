@@ -1,4 +1,4 @@
-# cs1101s2022
+# CS1101S AY22/23 Semester 1
 
 These are my codes for CS1101S AY22/23 Sem 1!
 

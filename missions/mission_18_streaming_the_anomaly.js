@@ -7,7 +7,9 @@ returns the nullary function () => null to signify the end of the stream.
 */
 function array_to_stream(a) {
     function helper(a, k) {
-        if (k === array_length(a) - 1) {
+        if (array_length(a) === 0) {
+            return null;
+        } else if (k === array_length(a) - 1) {
             return pair(a[k], () => null);
         } else {
             return pair(a[k], () => helper(a, k + 1));
@@ -175,15 +177,15 @@ is a multiple of n, then would it add to the new stream.
 */
 function time_lapse(s, n) {
     // your solution goes here
-    function helper(st, n, pointer) {
+    function helper(st, pointer) {
         if (pointer % n === 0) {
             return pair(head(st), 
-                        () => helper(stream_tail(st), n, pointer + 1));
+                        () => helper(stream_tail(st), pointer + 1));
         } else {
-            return helper(stream_tail(st), n, pointer + 1);
+            return helper(stream_tail(st), pointer + 1);
         }
     }
-    return helper(s, n, 0);
+    return helper(s, 0);
 }
 
 

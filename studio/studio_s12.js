@@ -3,6 +3,40 @@
 // * Adding blocks and declarations
 // * Adding compound functions (but no return)
 
+//POSSIBLE SOLUTION FOR Q1
+function sort_seq(seq) {
+    const xs = filter(x => is_tagged_list(x, "function_declaration"), seq);
+    const ys = filter(x => !is_tagged_list(x, "function_declaration"), seq);
+    return append(xs, ys);
+}
+//CHANGED
+function evaluate(component, env) { 
+    return is_literal(component)
+           ? literal_value(component)
+           : is_conditional(component)
+           ? eval_conditional(component, env)
+           : is_sequence(component)
+           ? eval_sequence(sort_seq(sequence_statements(component)), env)
+           : is_name(component)
+           ? lookup_symbol_value(symbol_of_name(component), env)
+           : is_block(component)
+           ? eval_block(component, env)
+           : is_function_declaration(component)
+           ? evaluate(function_decl_to_constant_decl(component), env)
+           : is_declaration(component)
+           ? eval_declaration(component, env)
+           : is_application(component)
+           ? apply(evaluate(function_expression(component), env),
+                   list_of_values(arg_expressions(component), env))
+           : is_operator_combination(component)
+           ? evaluate(operator_combination_to_application(component),
+                      env)
+           : is_lambda_expression(component)
+           ? make_function(lambda_parameter_symbols(component),
+                           lambda_body(component), env)
+           : error(lookup_symbol_value((component), env), "Unknown component:");
+}
+
 //
 // evaluation
 //CHANGED

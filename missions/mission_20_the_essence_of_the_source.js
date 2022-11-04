@@ -482,7 +482,7 @@ count_frames_created("{}");
 //set a global count for the number of function objects created
 let function_object_created = 0;
 function count_function_objects_created(program_string) {
-    // Your solution here
+    function_object_created = 0;
     parse_and_evaluate(program_string);
     return function_object_created;
 }

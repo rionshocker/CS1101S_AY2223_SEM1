@@ -4,7 +4,7 @@ let frames_created = 0;
 //using the basis of environment extension creating a new frame, we add a
 //frame everytime an environment is extended.
 function count_frames_created(program_string) {
-    // Your solution here
+    frames_created = 0;
     parse_and_evaluate(program_string);
     
     return frames_created;
@@ -472,7 +472,6 @@ const the_global_environment = setup_environment();
 //
 
 function parse_and_evaluate(program) {
-    frames_created = 0;
     return evaluate(make_block(parse(program)),
                     the_global_environment);
 }
